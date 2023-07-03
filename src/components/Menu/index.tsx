@@ -60,14 +60,10 @@ export default function ResponsiveDrawer(props: Props) {
           gap: 3,
           ml: 'auto'
         }}>
-          <Link component={RouterLink} to={`/`} sx={{
-            color: '#ffffff'
-          }}>
+          <Link component={RouterLink} to={`/`} color="inherit">
             Home
           </Link>
-          <Link component={RouterLink} to={`/beer`} sx={{
-            color: '#ffffff'
-          }}>
+          <Link component={RouterLink} to={`/beer`} color="inherit">
             Beer List
           </Link>
         </Box>
