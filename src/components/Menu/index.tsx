@@ -10,8 +10,6 @@ import {
   Toolbar,
   Link,
 } from '@mui/material';
-import SportsBar from '@mui/icons-material/SportsBar';
-import HomeIcon from '@mui/icons-material/Home';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import TopBar from '../TopBar';
@@ -36,9 +34,6 @@ export default function ResponsiveDrawer(props: Props) {
         <Link component={RouterLink} to={`/`}>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
               <ListItemText primary='Home' />
             </ListItemButton>
           </ListItem>
@@ -46,9 +41,6 @@ export default function ResponsiveDrawer(props: Props) {
         <Link component={RouterLink} to={`/beer`}>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemIcon>
-                <SportsBar />
-              </ListItemIcon>
               <ListItemText primary='Beer List' />
             </ListItemButton>
           </ListItem>
@@ -59,16 +51,37 @@ export default function ResponsiveDrawer(props: Props) {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <TopBar drawerWidth={drawerWidth} handleDrawerToggle={handleDrawerToggle} />
+      <TopBar drawerWidth={drawerWidth} handleDrawerToggle={handleDrawerToggle}>
+        <Box sx={{
+          display: {
+            xs: 'none',
+            sm: 'flex'
+          },
+          gap: 3,
+          ml: 'auto'
+        }}>
+          <Link component={RouterLink} to={`/`} sx={{
+            color: '#ffffff'
+          }}>
+            Home
+          </Link>
+          <Link component={RouterLink} to={`/beer`} sx={{
+            color: '#ffffff'
+          }}>
+            Beer List
+          </Link>
+        </Box>
+      </TopBar>
       <Box
         component='nav'
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        sx={{ flexShrink: { sm: 0 } }}
         aria-label='mailbox folders'
       >
         <Drawer
           variant='temporary'
           open={mobileOpen}
           onClose={handleDrawerToggle}
+          anchor={'right'}
           ModalProps={{
             keepMounted: true,
           }}
@@ -79,26 +92,16 @@ export default function ResponsiveDrawer(props: Props) {
         >
           {drawer}
         </Drawer>
-        <Drawer
-          variant='permanent'
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
       </Box>
       <Box
         component='main'
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)`, background: '#f7f7f7' },
           minHeight: '100vh',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
+          background: '#000000'
         }}
       >
         <Toolbar />
