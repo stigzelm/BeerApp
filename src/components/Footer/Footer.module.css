@@ -1,9 +1,15 @@
-.container {
+.footer {
   width: 100%;
-  padding: 1rem;
+  display: flex;
+  color: #ffffff;
+  justify-content: space-between;
 }
 
-.inner {
-  text-align: center;
-  width: 100%;
+.copy {
+  color: inherit;
+}
+
+.links {
+  display: flex;
+  gap: 24px;
 }
