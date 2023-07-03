@@ -1,14 +1,28 @@
-import { createTheme } from '@mui/material/styles';
-import { green, blue } from '@mui/material/colors';
+import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
-      main: blue[800],
+      main: '#000000',
+      light: '#000000',
+      dark: '#000000',
+      contrastText: '#ffffff'
     },
     secondary: {
-      main: green[500],
+      main: '#ffffff',
+      light: '#ffffff',
+      dark: '#ffffff',
+      contrastText: '#000000'
     },
+    background: {
+      paper: '#ffffff',
+      default: '#000000'
+    }
+  },
+  typography: {
+    h1: {
+      fontWeight: 700
+    }
   },
   components: {
     MuiLink: {
@@ -20,5 +34,7 @@ const theme = createTheme({
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 export { theme };
