@@ -102,6 +102,23 @@ const Beer = () => {
           </Box>
         </Container>
       }
+      {beer &&
+        <Box sx={{
+          textAlign: 'center',
+          marginTop: '96px',
+          marginBottom: '96px'
+          }}>
+          <Typography variant="h2" component="div" color="#ffffff">
+            <Link
+              href='/beer'
+              color="#ffffff"
+              underline="hover"
+            >
+              View more beers
+            </Link>
+          </Typography>
+        </Box>
+      }
     </Box>
   );
 };
