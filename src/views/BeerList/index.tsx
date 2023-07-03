@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Beer } from '../../types';
 import { fetchData } from './utils';
-import { Avatar, List, ListItemAvatar, ListItemButton, ListItemText } from '@mui/material';
+import { Container, Box, List, ListItemButton, ListItemText } from '@mui/material';
 import SportsBar from '@mui/icons-material/SportsBar';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,27 +15,25 @@ const BeerList = () => {
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
 
   return (
-    <article>
-      <section>
+    <Box component="article" sx={{marginBottom: '96px'}}>
+      <Container disableGutters>
         <header>
           <h1>BeerList page</h1>
         </header>
         <main>
           <List>
             {beerList.map((beer) => (
-              <ListItemButton key={beer.id} onClick={onBeerClick.bind(this, beer.id)}>
-                <ListItemAvatar>
-                  <Avatar>
-                    <SportsBar />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={beer.name} secondary={beer.brewery_type} />
+              <ListItemButton key={beer.id} onClick={onBeerClick.bind(this, beer.id)} disableGutters sx={{
+                paddingTop: '48px',
+                paddingBottom: '48px'
+              }}>
+                <ListItemText primary={beer.name} primaryTypographyProps={{ color: '#ffffff', variant: 'h2'}} secondary={beer.brewery_type} />
               </ListItemButton>
             ))}
           </List>
         </main>
-      </section>
-    </article>
+      </Container>
+    </Box>
   );
 };
 
