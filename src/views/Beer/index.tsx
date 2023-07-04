@@ -11,6 +11,7 @@ import { MapContainer, Marker, TileLayer } from 'react-leaflet';
 
 import markerIcon from './marker.svg';
 import bgImage from './background-image.jpg';
+import noMapImage from './no-map-image.jpg';
 import styles from './Beer.module.css';
 
 const Beer = () => {
@@ -36,7 +37,7 @@ const Beer = () => {
   return (
     <Box component="article" className={styles.article}>
       <Box component="header" className={styles.header}>
-        <Typography variant="h1" component="h1" color="#ffffff">
+        <Typography variant="h1" component="h1" color="#ffffff" sx={{ maxWidth: '1200px'}}>
           {beer?.name}
         </Typography>
         <img src={bgImage} alt="Beer under a tap" />
@@ -67,38 +68,53 @@ const Beer = () => {
                 <br />
                 {beer?.country}
               </Typography>
-              <br />
-              <Typography variant="body1" component="p">
-                <b>Phone:</b>
-                <br />
-                {beer?.phone.replace(/\D+/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}
-              </Typography>
-              <br />
-              <Typography variant="body1" component="p">
-                <b>Website:</b>
-                <br />
-                <Link href={beer?.website_url} target="_blank">{beer?.website_url}</Link>
-              </Typography>
-              <Box className={styles.mapCta}>
-                <Button variant="outlined">Visit website</Button>
-              </Box>
+              {beer?.phone && 
+                <Box>
+                  <br />
+                  <Typography variant="body1" component="p">
+                    <b>Phone:</b>
+                    <br />
+                    {beer?.phone.replace(/\D+/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}
+                  </Typography>
+                </Box>
+              }
+              {beer?.website_url && 
+                <Box>
+                  <br />
+                  <Typography variant="body1" component="p">
+                    <b>Website:</b>
+                    <br />
+                    <Link href={beer?.website_url} target="_blank">{beer?.website_url}</Link>
+                  </Typography>
+                  <Box className={styles.mapCta}>
+                    <Button variant="outlined">Visit website</Button>
+                  </Box>
+                </Box>
+              }
             </Box>
-            <MapContainer
-              center={[parseFloat(beer?.latitude), parseFloat(beer?.longitude)]}
-              zoom={14}
-              scrollWheelZoom={false}
-              className={styles.mapView}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker
-                position={[parseFloat(beer?.latitude), parseFloat(beer?.longitude)]}
-                icon={mapMarkerIcon}
+            {beer?.latitude && beer?.longitude && 
+              <MapContainer
+                center={[parseFloat(beer?.latitude), parseFloat(beer?.longitude)]}
+                zoom={14}
+                scrollWheelZoom={false}
+                className={styles.mapView}
               >
-              </Marker>
-            </MapContainer>
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+                <Marker
+                  position={[parseFloat(beer?.latitude), parseFloat(beer?.longitude)]}
+                  icon={mapMarkerIcon}
+                >
+                </Marker>
+              </MapContainer>
+            }
+            {!beer?.latitude && !beer?.longitude && 
+              <Box className={styles.mapImage}>
+                <img src={noMapImage} alt="Hand pouring beer into glass" />
+              </Box>
+            }
           </Box>
         </Container>
       }
@@ -114,7 +130,7 @@ const Beer = () => {
               color="#ffffff"
               underline="hover"
             >
-              View more beers
+              View more breweries
             </Link>
           </Typography>
         </Box>

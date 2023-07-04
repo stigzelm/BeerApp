@@ -13,9 +13,13 @@ const TopBar = (props: Props) => {
     <AppBar
       position="fixed"
       elevation={0}
+      sx={{
+        paddingLeft: 3,
+        paddingRight: 3
+      }}
     >
       <Container disableGutters>
-        <Toolbar>
+        <Toolbar disableGutters>
           <Typography variant="h6" noWrap component="div">
             BW
           </Typography>

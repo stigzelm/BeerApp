@@ -107,7 +107,7 @@ const BeerList = () => {
       <Container disableGutters>
         <Typography variant="h3" component="h1" color="#ffffff" sx={{
           marginBottom: '96px'
-        }}>Brewery list page</Typography>
+        }}>Breweries</Typography>
         {metaData &&
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, borderBottom: '1px solid #ffffff', padding: '24px 0' }}>
             <FormControl>
