@@ -76,12 +76,13 @@
     }
     
     .mapText {
-        width: 300px;
+        min-width: 300px;
         flex-shrink: 0;
+        width: 40%;
     }
 
     .mapImage {
-        width: calc(100% - 300px);
+        width: 60%;
         flex-shrink: 0;
     }
 
