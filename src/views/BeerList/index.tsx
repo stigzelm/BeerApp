@@ -240,7 +240,8 @@ const BeerList = () => {
                 display: 'none'
               },
               '.MuiTablePagination-toolbar': {
-                paddingLeft: 0
+                paddingLeft: 0,
+                overflow: 'hidden'
               },
               '.MuiTablePagination-displayedRows': {
                 marginLeft: 'auto'
