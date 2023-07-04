@@ -1,4 +1,5 @@
 type TYPE =
+  | 'all types'
   | 'micro'
   | 'nano'
   | 'regional'
@@ -10,6 +11,6 @@ type TYPE =
   | 'proprietor'
   | 'closed';
 
-type SORT = 'asc' | 'desc';
+type SORT = 'name:asc' | 'name:desc';
 
 export type { TYPE, SORT };
