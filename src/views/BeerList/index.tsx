@@ -200,6 +200,14 @@ const BeerList = () => {
             </ListItemButton>
           ))}
         </List>
+        {metaData && metaData?.total == 0 && 
+          <Box sx={{
+            padding: '96px 0'
+          }}>
+            <Typography component="h2" variant="h2" color="#ffffff">No breweries found.</Typography>
+            <Typography component="p" variant="h4" color="#ffffff">Please try to modify your filters.</Typography>
+          </Box>
+        }
         {metaData && 
           <TablePagination
             component="div"
