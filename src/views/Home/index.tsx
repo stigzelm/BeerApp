@@ -78,7 +78,7 @@ const Home = () => {
           }
           {favoriteList.length == 0 &&
             <Box sx={{
-              padding: '96px 0'
+              padding: '48px 0 96px 0'
             }}>
               <Typography component="p" variant="h4" color="#ffffff">Start by choosing your favorite breweries <Link href="/beer" color="#ffffff" sx={{ textDecoration: 'underline' }}>here</Link></Typography>
             </Box>
