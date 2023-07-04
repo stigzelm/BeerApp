@@ -1,6 +1,5 @@
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, IconButton, Toolbar, Typography, Link, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
 
 interface Props {
   drawerWidth: number;
@@ -20,9 +19,11 @@ const TopBar = (props: Props) => {
     >
       <Container disableGutters>
         <Toolbar disableGutters>
-          <Typography variant="h6" noWrap component="div">
-            BW
-          </Typography>
+          <Link href="/" color="#ffffff">
+            <Typography variant="h6" noWrap component="div">
+              BW
+            </Typography>
+          </Link>
           {props.children}
           <IconButton
             color="inherit"
