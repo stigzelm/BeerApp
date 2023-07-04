@@ -1,64 +1,91 @@
 import { useEffect, useState } from 'react';
-import { fetchData } from './utils';
 import { Beer } from '../../types';
-import { Link as RouterLink } from 'react-router-dom';
-import { Button, Checkbox, Paper, TextField, Link } from '@mui/material';
+import { Box, Button, Checkbox, Container, Paper, TextField, Link, List, ListItemButton, ListItemText, Typography } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+
+import { useNavigate } from 'react-router-dom';
+
+
+import FavoriteButton from "../../components/FavoriteButton";
+import { updateFavorites, isItemFavorite, getFavorites, removeAllFavorites } from "../../utils/favorites";
+
+import bgImage from './homepage-image.jpg';
 import styles from './Home.module.css';
 
 const Home = () => {
-  const [beerList, setBeerList] = useState<Array<Beer>>([]);
-  const [savedList, setSavedList] = useState<Array<Beer>>([]);
+  const navigate = useNavigate();
+  const [favoriteList, setFavoriteList] = useState<Array<Beer>>([]);
 
-  // eslint-disable-next-line
-  useEffect(fetchData.bind(this, setBeerList), []);
+  useEffect(() => {
+    setFavoriteList(getFavorites());
+  }, []);
+
+  const onBeerClick = (id: string) => navigate(`/beer/${id}`);
 
   return (
-    <article>
-      <section>
-        <main>
-          <Paper>
-            <div className={styles.listContainer}>
-              <div className={styles.listHeader}>
-                <TextField label='Filter...' variant='outlined' />
-                <Button variant='contained'>Reload list</Button>
-              </div>
-              <ul className={styles.list}>
-                {beerList.map((beer, index) => (
-                  <li key={index.toString()}>
-                    <Checkbox />
-                    <Link component={RouterLink} to={`/beer/${beer.id}`}>
-                      {beer.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Paper>
-
-          <Paper>
-            <div className={styles.listContainer}>
-              <div className={styles.listHeader}>
-                <h3>Saved items</h3>
-                <Button variant='contained' size='small'>
-                  Remove all items
-                </Button>
-              </div>
-              <ul className={styles.list}>
-                {savedList.map((beer, index) => (
-                  <li key={index.toString()}>
-                    <Checkbox />
-                    <Link component={RouterLink} to={`/beer/${beer.id}`}>
-                      {beer.name}
-                    </Link>
-                  </li>
-                ))}
-                {!savedList.length && <p>No saved items</p>}
-              </ul>
-            </div>
-          </Paper>
-        </main>
-      </section>
-    </article>
+    <Box component="article">
+      <Box component="header" className={styles.header}>
+        <Typography variant="h1" component="h1" color="#ffffff" sx={{ maxWidth: '1200px'}}>
+          BeerWiki
+        </Typography>
+        <img src={bgImage} alt="Beer under a tap" />
+      </Box>
+      <Container disableGutters sx={{
+          marginTop: '96px',
+          marginBottom: '196px'
+        }}>
+        <Box>
+          <Box component="header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '48px'}}>
+            <Typography component="h2" variant="h2" color="#ffffff">
+              Favorite breweries
+            </Typography>
+            {favoriteList.length > 0 && 
+              <Button
+                variant="contained"
+                color="error"
+                startIcon={<DeleteIcon />}
+                onClick={() => {
+                  removeAllFavorites();
+                  setFavoriteList([]);
+                }}
+              >
+                Remove all
+              </Button>
+            }
+          </Box>
+          {favoriteList.length > 0 &&
+             <List>
+              {favoriteList.map((beer) => (
+                <ListItemButton key={beer.id} disableGutters sx={{
+                  paddingTop: '24px',
+                  paddingBottom: '24px',
+                  gap: 3
+                }}>
+                  <ListItemText primary={beer.name + ' - (' + beer.brewery_type + ')'} primaryTypographyProps={{ color: '#ffffff', variant: 'h4'}} onClick={onBeerClick.bind(this, beer.id)} />
+                  <Box sx={{ flexShrink: 0 }}>
+                    <FavoriteButton
+                      onClick={() => {
+                        updateFavorites(beer);
+                        setFavoriteList(getFavorites());
+                      }}
+                      isActive={isItemFavorite(beer)}
+                    />
+                  </Box>
+                </ListItemButton>
+              ))}
+            </List>
+          }
+          {favoriteList.length == 0 &&
+            <Box sx={{
+              padding: '96px 0'
+            }}>
+              <Typography component="p" variant="h4" color="#ffffff">Start by choosing your favorite breweries <Link href="/beer" color="#ffffff" sx={{ textDecoration: 'underline' }}>here</Link></Typography>
+            </Box>
+          }
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

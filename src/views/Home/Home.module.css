@@ -1,15 +1,37 @@
-.list {
-  list-style: none;
-}
-
-.listContainer {
-  padding: 20px;
-  margin-bottom: 20px;
-  background: #fff;
-}
-
-.listHeader {
+.header {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 48px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  min-height: 400px;
+}
+
+.header h1 {
+  position: relative;
+  z-index: 2;
+}
+
+.header img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  object-fit: cover;
+}
+
+.header:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,47,75,0.5) 0%,rgba(220, 66, 37, 0.5) 100%);
+  z-index: 1;
+  mix-blend-mode: overlay;
 }

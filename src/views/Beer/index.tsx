@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Beer as IBeer } from '../../types';
 import { fetchData } from './utils';
 import { useParams } from 'react-router-dom';
-
 import { Button, Box, Typography, Container, Link } from '@mui/material';
 
 import L from 'leaflet';
@@ -13,6 +12,9 @@ import markerIcon from './marker.svg';
 import bgImage from './background-image.jpg';
 import noMapImage from './no-map-image.jpg';
 import styles from './Beer.module.css';
+
+import FavoriteButton from "../../components/FavoriteButton";
+import { updateFavorites, isItemFavorite } from "../../utils/favorites";
 
 const Beer = () => {
   const { id } = useParams();
@@ -40,6 +42,16 @@ const Beer = () => {
         <Typography variant="h1" component="h1" color="#ffffff" sx={{ maxWidth: '1200px'}}>
           {beer?.name}
         </Typography>
+        {beer && 
+          <Box sx={{ position: 'absolute', bottom: '24px', right: '24px', zIndex: 2}}>
+            <FavoriteButton
+              onClick={() =>
+                updateFavorites(beer)
+              }
+              isActive={isItemFavorite(beer)}
+            />
+          </Box>
+        }
         <img src={bgImage} alt="Beer under a tap" />
       </Box>
       {beer &&
