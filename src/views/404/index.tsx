@@ -1,15 +1,21 @@
+import { 
+  Box,
+  Container,
+  Typography
+} from '@mui/material';
+
 const NotFound = () => {
   return (
-    <article>
-      <section>
-        <header>
-          <h1>Page not found</h1>
-        </header>
-        <main>
-          <span>We haven't found what you've been looking for</span>
-        </main>
-      </section>
-    </article>
+    <Box component="article" sx={{ flexGrow: 1 }}>
+        <Container disableGutters sx={{
+          margin: '96px 0',
+        }}>
+          <Box component="header">
+            <Typography component="h1" variant="h1" color="#ffffff">Page not found</Typography>
+            <Typography color="#ffffff">We haven't found what you've been looking for</Typography>
+          </Box>
+        </Container>
+    </Box>
   );
 };
 

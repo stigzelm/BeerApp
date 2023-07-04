@@ -1,8 +1,10 @@
 .footer {
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   color: #ffffff;
   justify-content: space-between;
+  gap: 24px;
 }
 
 .copy {

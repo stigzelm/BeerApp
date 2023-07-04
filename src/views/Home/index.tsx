@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import FavoriteButton from "../../components/FavoriteButton";
 import { updateFavorites, isItemFavorite, getFavorites, removeAllFavorites } from "../../utils/favorites";
 
-import bgImage from './homepage-image.jpg';
+import bgImage from './homepage-image-1.jpg';
 import styles from './Home.module.css';
 
 const Home = () => {
@@ -24,10 +24,10 @@ const Home = () => {
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
 
   return (
-    <Box component="article">
+    <Box component="article" sx={{ flexGrow: 1 }}>
       <Box component="header" className={styles.header}>
         <Typography variant="h1" component="h1" color="#ffffff" sx={{ maxWidth: '1200px'}}>
-          BeerWiki
+          Welcome to BeerWiki
         </Typography>
         <img src={bgImage} alt="Beer under a tap" />
       </Box>
@@ -36,7 +36,14 @@ const Home = () => {
           marginBottom: '196px'
         }}>
         <Box>
-          <Box component="header" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '48px'}}>
+          <Box component="header" sx={{ 
+              display: 'flex',
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '48px',
+              gap: 3
+            }}>
             <Typography component="h2" variant="h2" color="#ffffff">
               Favorite breweries
             </Typography>

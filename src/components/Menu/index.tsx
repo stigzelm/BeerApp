@@ -34,14 +34,14 @@ export default function ResponsiveDrawer(props: Props) {
         <Link component={RouterLink} to={`/`}>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemText primary='Home' />
+              <ListItemText primary='Home' sx={{ color: '#ffffff' }} />
             </ListItemButton>
           </ListItem>
         </Link>
         <Link component={RouterLink} to={`/beer`}>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemText primary='Breweries' />
+              <ListItemText primary='Breweries' sx={{ color: '#ffffff' }} />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -81,9 +81,20 @@ export default function ResponsiveDrawer(props: Props) {
           ModalProps={{
             keepMounted: true,
           }}
+          PaperProps={{
+            sx: {
+              background: '#000000'
+            }
+          }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: {
+              xs: 'block',
+              sm: 'none'
+            },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: drawerWidth
+            },
           }}
         >
           {drawer}

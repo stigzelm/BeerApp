@@ -109,7 +109,8 @@ const BeerList = () => {
 
   return (
     <Box component="article" sx={{
-        marginBottom: '96px'
+        marginBottom: '96px',
+        flexGrow: 1
       }}>
       <Container disableGutters>
         <Typography variant="h3" component="h1" color="#ffffff" sx={{
@@ -169,7 +170,10 @@ const BeerList = () => {
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ marginLeft: 'auto'}}>
+            <FormControl sx={{ marginLeft: 'auto', width: {
+              xs: '100%',
+              sm: 'auto'
+            }}}>
               <InputLabel id="sort-select-label" color="secondary" shrink={true} sx={{color: '#ffffff'}}>Sort by</InputLabel>
               <Select
                 labelId="sort-select-label"
@@ -204,7 +208,7 @@ const BeerList = () => {
               paddingBottom: '48px',
               gap: 3
             }}>
-              <ListItemText primary={beer.name + ' - (' + beer.brewery_type + ')'} primaryTypographyProps={{ color: '#ffffff', variant: 'h3'}} onClick={onBeerClick.bind(this, beer.id)} />
+              <ListItemText primary={beer.name + ' - (' + beer.brewery_type + ')'} primaryTypographyProps={{ color: '#ffffff', variant: 'h4'}} onClick={onBeerClick.bind(this, beer.id)} />
               <Box sx={{ flexShrink: 0 }}>
                 <FavoriteButton
                   onClick={() => {
@@ -247,7 +251,8 @@ const BeerList = () => {
                 marginLeft: 'auto'
               },
               '.MuiTablePagination-actions': {
-                marginRight: '-15px'
+                marginRight: '-15px',
+                marginLeft: '0 !important'
               }
             }}
           />
