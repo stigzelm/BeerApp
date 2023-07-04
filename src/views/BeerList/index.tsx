@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Beer, MetaData, SORT } from '../../types';
+import { ApiParams, Beer, MetaData, SORT, TYPE } from '../../types';
 import { fetchData, fetchMetaData } from './utils';
 import { 
   Box,
@@ -17,6 +17,20 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+const breweryTypes = [
+  'all types',
+  'micro',
+  'nano',
+  'regional',
+  'brewpub',
+  'large',
+  'planning',
+  'bar',
+  'contract',
+  'proprietor',
+  'closed',
+];
+
 const BeerList = () => {
   const navigate = useNavigate();
   const [beerList, setBeerList] = useState<Array<Beer>>([]);
@@ -25,17 +39,24 @@ const BeerList = () => {
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
   const [loading, setLoading] = useState<boolean>(true);
   const [sort, setSort] = useState<SORT>("name:asc");
+  const [type, setType] = useState<TYPE>('all types');
 
   // eslint-disable-next-line
   useEffect(() => {
+
     const params = {
       sort: sort,
       page: page,
       per_page: rowsPerPage
-    };
+    } as ApiParams;
+
+    if (type && type !== 'all types') {
+      params.by_type = type;
+    }
+
     fetchData(setBeerList, params, () => setLoading(false));
     fetchMetaData(setMetaData, params);
-  }, [page, rowsPerPage, sort]);
+  }, [page, rowsPerPage, sort, type]);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -53,16 +74,17 @@ const BeerList = () => {
     setPage(0);
   };
 
-  const handleSortChange = (event: SelectChangeEvent<string>) => {
+  const handleSortChange = (event: SelectChangeEvent) => {
     setLoading(true);
-    switch (event.target?.value) {
-      case "name:desc":
-        setSort("name:desc");
-        break;
-      default:
-        setSort("name:asc");
-    }
-  }
+    setSort(event.target.value as SORT);
+    setPage(0);
+  };
+
+  const handleTypeChange = (event: SelectChangeEvent) => {
+    setLoading(true);
+    setType(event.target.value as TYPE);
+    setPage(0);
+  };
 
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
 
@@ -72,32 +94,58 @@ const BeerList = () => {
       }}>
       <Container disableGutters>
         <Typography variant="h3" component="h1" color="#ffffff" sx={{
-          marginBottom: '24px'
-        }}>BeerList page</Typography>
+          marginBottom: '96px'
+        }}>Brewery list page</Typography>
         {metaData &&
-          <FormControl>
-            <InputLabel id="demo-simple-select-label" color="secondary" sx={{color: '#ffffff'}}>Sort</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={sort}
-              label="Sort by"
-              onChange={handleSortChange}
-              autoWidth
-              sx={{
-                color: '#ffffff',
-                '.MuiOutlinedInput-notchedOutline': {
-                  borderColor: 'white'
-                },
-                '.MuiSvgIcon-root': {
-                  color: 'white'
-                }
-              }}
-              >
-              <MenuItem value="name:asc">Name - Ascending</MenuItem>
-              <MenuItem value="name:desc">Name - Descending</MenuItem>
-            </Select>
-          </FormControl>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, borderBottom: '1px solid #ffffff', padding: '24px 0' }}>
+            <FormControl>
+              <InputLabel id="type-select-label" color="secondary" sx={{color: '#ffffff'}}>Type</InputLabel>
+              <Select
+                labelId="type-select-label"
+                id="type-select"
+                value={type}
+                label="Type"
+                onChange={handleTypeChange}
+                autoWidth
+                sx={{
+                  color: '#ffffff',
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white'
+                  },
+                  '.MuiSvgIcon-root': {
+                    color: 'white'
+                  }
+                }}
+                >
+                {breweryTypes.map((item) => (
+                  <MenuItem key={item} value={item}>{item.charAt(0).toUpperCase() + item.slice(1)}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ marginLeft: 'auto'}}>
+              <InputLabel id="sort-select-label" color="secondary" sx={{color: '#ffffff'}}>Sort by</InputLabel>
+              <Select
+                labelId="sort-select-label"
+                id="sort-select"
+                value={sort}
+                label="Sort by"
+                onChange={handleSortChange}
+                autoWidth
+                sx={{
+                  color: '#ffffff',
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white'
+                  },
+                  '.MuiSvgIcon-root': {
+                    color: 'white'
+                  }
+                }}
+                >
+                <MenuItem value="name:asc">Name - Ascending</MenuItem>
+                <MenuItem value="name:desc">Name - Descending</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
         }
         <List sx={{
           opacity: loading ? 0.3 : 1,

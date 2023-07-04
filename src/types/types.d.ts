@@ -1,4 +1,5 @@
 type TYPE =
+  | 'all types'
   | 'micro'
   | 'nano'
   | 'regional'
