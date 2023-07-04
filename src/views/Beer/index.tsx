@@ -39,7 +39,7 @@ const Beer = () => {
   return (
     <Box component="article" className={styles.article}>
       <Box component="header" className={styles.header}>
-        <Typography variant="h1" component="h1" color="#ffffff" sx={{ maxWidth: '1200px'}}>
+        <Typography variant="h1" component="h1" color="#ffffff" sx={{ maxWidth: '1000px'}}>
           {beer?.name}
         </Typography>
         {beer && 
