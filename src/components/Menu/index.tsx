@@ -5,7 +5,6 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Toolbar,
   Link,

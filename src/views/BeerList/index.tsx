@@ -103,10 +103,6 @@ const BeerList = () => {
 
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
 
-  const mouseDown = (e: any) => {
-    e.stopPropagation ();
-  };
-
   return (
     <Box component="article" sx={{
         marginBottom: '96px',
@@ -220,7 +216,7 @@ const BeerList = () => {
             </ListItemButton>
           ))}
         </List>
-        {metaData && metaData?.total == 0 && 
+        {metaData && metaData?.total === 0 && 
           <Box sx={{
             padding: '96px 0'
           }}>

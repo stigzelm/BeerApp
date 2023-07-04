@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Beer } from '../../types';
-import { Box, Button, Checkbox, Container, Paper, TextField, Link, List, ListItemButton, ListItemText, Typography } from '@mui/material';
+import { Box, Button, Container, Link, List, ListItemButton, ListItemText, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
@@ -83,7 +83,7 @@ const Home = () => {
               ))}
             </List>
           }
-          {favoriteList.length == 0 &&
+          {favoriteList.length === 0 &&
             <Box sx={{
               padding: '48px 0 96px 0'
             }}>
