@@ -13,7 +13,8 @@ import {
   Select,
   SelectChangeEvent,
   TablePagination,
-  Typography,
+  TextField,
+  Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -40,6 +41,7 @@ const BeerList = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [sort, setSort] = useState<SORT>("name:asc");
   const [type, setType] = useState<TYPE>('all types');
+  const [name, setName] = useState<string>('');
 
   // eslint-disable-next-line
   useEffect(() => {
@@ -54,9 +56,13 @@ const BeerList = () => {
       params.by_type = type;
     }
 
+    if (name) {
+      params.by_name = name;
+    }
+
     fetchData(setBeerList, params, () => setLoading(false));
     fetchMetaData(setMetaData, params);
-  }, [page, rowsPerPage, sort, type]);
+  }, [page, rowsPerPage, sort, type, name]);
 
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
@@ -86,6 +92,12 @@ const BeerList = () => {
     setPage(0);
   };
 
+  const handleNameChange = (event: { target: { value: string } }) => {
+    setLoading(true);
+    setName(event.target.value);
+    setPage(0);
+  };
+
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
 
   return (
@@ -99,7 +111,35 @@ const BeerList = () => {
         {metaData &&
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, borderBottom: '1px solid #ffffff', padding: '24px 0' }}>
             <FormControl>
-              <InputLabel id="type-select-label" color="secondary" sx={{color: '#ffffff'}}>Type</InputLabel>
+              <TextField
+                label="Name"
+                variant="outlined"
+                placeholder="Search by name"
+                value={name}
+                onChange={handleNameChange}
+                InputLabelProps={{
+                  color: 'secondary',
+                  shrink: true,
+                  sx: {
+                    color: '#ffffff'
+                  }
+                }}
+                inputProps={{
+                  sx: {
+                    color: '#ffffff'
+                  }
+                }}
+                sx={{
+                  color: '#ffffff',
+                  '.MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'white'
+                  }
+                }}
+              >
+              </TextField>
+            </FormControl>
+            <FormControl>
+              <InputLabel id="type-select-label" color="secondary" shrink={true} sx={{color: '#ffffff'}}>Type</InputLabel>
               <Select
                 labelId="type-select-label"
                 id="type-select"
@@ -123,7 +163,7 @@ const BeerList = () => {
               </Select>
             </FormControl>
             <FormControl sx={{ marginLeft: 'auto'}}>
-              <InputLabel id="sort-select-label" color="secondary" sx={{color: '#ffffff'}}>Sort by</InputLabel>
+              <InputLabel id="sort-select-label" color="secondary" shrink={true} sx={{color: '#ffffff'}}>Sort by</InputLabel>
               <Select
                 labelId="sort-select-label"
                 id="sort-select"
