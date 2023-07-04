@@ -41,7 +41,7 @@ export default function ResponsiveDrawer(props: Props) {
         <Link component={RouterLink} to={`/beer`}>
           <ListItem disablePadding>
             <ListItemButton>
-              <ListItemText primary='Beer List' />
+              <ListItemText primary='Breweries' />
             </ListItemButton>
           </ListItem>
         </Link>
@@ -64,7 +64,7 @@ export default function ResponsiveDrawer(props: Props) {
             Home
           </Link>
           <Link component={RouterLink} to={`/beer`} color="inherit">
-            Beer List
+            Breweries
           </Link>
         </Box>
       </TopBar>
