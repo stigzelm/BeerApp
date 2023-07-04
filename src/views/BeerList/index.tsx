@@ -18,6 +18,9 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
+import FavoriteButton from "../../components/FavoriteButton";
+import { updateFavorites, isItemFavorite } from "../../utils/favorites";
+
 const breweryTypes = [
   'all types',
   'micro',
@@ -99,6 +102,10 @@ const BeerList = () => {
   };
 
   const onBeerClick = (id: string) => navigate(`/beer/${id}`);
+
+  const mouseDown = (e: any) => {
+    e.stopPropagation ();
+  };
 
   return (
     <Box component="article" sx={{
@@ -192,11 +199,20 @@ const BeerList = () => {
           pointerEvents: loading ? 'none': 'auto'
         }}>
           {beerList.map((beer) => (
-            <ListItemButton key={beer.id} onClick={onBeerClick.bind(this, beer.id)} disableGutters sx={{
+            <ListItemButton key={beer.id} disableGutters sx={{
               paddingTop: '48px',
-              paddingBottom: '48px'
+              paddingBottom: '48px',
+              gap: 3
             }}>
-              <ListItemText primary={beer.name + ' - (' + beer.brewery_type + ')'} primaryTypographyProps={{ color: '#ffffff', variant: 'h2'}} />
+              <ListItemText primary={beer.name + ' - (' + beer.brewery_type + ')'} primaryTypographyProps={{ color: '#ffffff', variant: 'h3'}} onClick={onBeerClick.bind(this, beer.id)} />
+              <Box sx={{ flexShrink: 0 }}>
+                <FavoriteButton
+                  onClick={() => {
+                    updateFavorites(beer);
+                  }}
+                  isActive={isItemFavorite(beer)}
+                />
+              </Box>
             </ListItemButton>
           ))}
         </List>
