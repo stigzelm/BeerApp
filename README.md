@@ -9,3 +9,11 @@ We will discuss the proposed solution during the interview. You should be ready 
 - Home page favourites ~ add a list of favourite beers, do not clean after page reload
 - Beer list filtering + pagination + sorting
 - Progressive Web App, offline
+
+
+## PWA testing
+To test out the PWA functionality, we need to test out the production build. To simply do this you can install the spa-http-server with the command: 
+`npm install http-server -g`
+Once it is installed, go to your build directory and run:
+`http-server --push-state -p 3000 -a localhost -o`
+Now you are running the build version locally.
